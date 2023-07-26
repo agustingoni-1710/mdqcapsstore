@@ -1,4 +1,4 @@
-import { View, Text, ViewBase } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "./styles";
 
 const Header = ({ title }) =>{

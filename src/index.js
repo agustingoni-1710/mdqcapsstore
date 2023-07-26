@@ -1,21 +1,28 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { CategoryItem, Header } from './components';
-import CATEGORIES from './constants/data/categories.json';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {  Header } from './components';
+import { Categories } from './screens';
+import { useState } from 'react';
+
 export default function App() {
+  const [isCategorySelected, setIsCategorySelected] = useState(false);
+  
   const onSelectCategory = ( categoryId ) =>{
-    console.warn({categoryId})
-  }
+    setIsCategorySelected(true)
+    console.warn({categoryId});
+  };
+  
   return (
     <SafeAreaView style={styles.container}> 
       <View style={styles.container}>
         <Header title='Categories'/>
-        <FlatList
-          data={ CATEGORIES }
-          style={styles.categoryContainer}
-          contentContainerStyle={styles.listCategory}
-          renderItem={({ item }) => <CategoryItem {...item} onSelectCategory={onSelectCategory}/>}
-          keyExtractor={(item) => item.id}
-        />
+        {isCategorySelected ? (
+          <Text>Category Selected</Text>
+        ) : (
+          <Categories onSelectCategory={onSelectCategory}/>
+        )
+
+        }
+        
       </View>
     </SafeAreaView>
   );
@@ -24,14 +31,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',  
   },
-  categoryContainer: {
-    marginTop: 15,
-    marginHorizontal: 15,
-  },
-  listCategory: {
-    gap: 15,
-    paddingBottom: 20,
-  }
 });
