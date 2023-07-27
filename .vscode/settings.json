@@ -1,0 +1,4 @@
+{
+    "eslint.debug": false,
+    "debug.javascript.autoAttachFilter": "disabled"
+}

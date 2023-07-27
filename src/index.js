@@ -1,26 +1,32 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+
 import {  Header } from './components';
-import { Categories } from './screens';
+import { Categories, Products } from './screens';
 import { useState } from 'react';
 
 export default function App() {
   const [isCategorySelected, setIsCategorySelected] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const headerTitle = isCategorySelected ? 'Products' : 'Categories';
   
-  const onSelectCategory = ( categoryId ) =>{
-    setIsCategorySelected(true)
-    console.warn({categoryId});
+  const onHandleSelectCategory = (categoryId) =>{
+    setSelectedCategory(categoryId);
+    setIsCategorySelected(!isCategorySelected);
   };
-  
+  const onHandleNavigate = () =>{
+    setIsCategorySelected(!isCategorySelected);
+    setSelectedCategory(null); 
+  }
   return (
     <SafeAreaView style={styles.container}> 
       <View style={styles.container}>
-        <Header title='Categories'/>
+        <Header title={headerTitle}/>
         {isCategorySelected ? (
-          <Text>Category Selected</Text>
-        ) : (
-          <Categories onSelectCategory={onSelectCategory}/>
-        )
-
+          <Products onHandleGoBack={onHandleNavigate}/> 
+          ) : ( 
+          <Categories onSelectCategory={onHandleSelectCategory} />
+          )
         }
         
       </View>
