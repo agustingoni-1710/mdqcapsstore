@@ -9,14 +9,35 @@ import PRODUCTS from "../../constants/data/products.json"
 function Product ({onHandleGoBack, catergoryId }) {
 
     const [search, setSearch] = useState('');
+    const [filteredProducts, setFilteredProdcuts] = useState([]);
     const [borderColor, setBoderColor] = useState(COLORS.primary);
     const onHandleBlur = () => {};
     const onHandleChangeText = (text) => {
         setSearch(text);
+        // cuando realizo la busqueda,osea ingreso el produnto a buscar en el input, lo va a filtrar directamente con el filterBySearch. 
+        filterBySearch(text);
     };
     const onHandleFocus = () => {};
 
-    const filterProducts = PRODUCTS.filter((product) => product.categoryId == catergoryId);
+    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == catergoryId);
+
+    const filterBySearch = (query) => {
+        // hago una copia del filtro anterior para poder volver a filtralo.
+        let updatePoductList = [...filteredProductsByCategory]; 
+
+        // en este nuevo filtro busco una conincidencia de la misma cantidad de caracteres con el indexOf y lo paso a minuscula con el toLowerCase
+        updatePoductList = updatePoductList.filter((product) => {
+            return product.name.toLowerCase().indexOf(query.toLowerCase()) != -1;
+        })
+
+        setFilteredProdcuts(updatePoductList);
+    }
+
+    const clearSearch = () => {
+        setSearch('');
+        setFilteredProdcuts([]);
+    }
+
     return(
         <View style={styles.container}>
             
@@ -34,14 +55,20 @@ function Product ({onHandleGoBack, catergoryId }) {
                     placeholder="Search"
                     borderColor={borderColor}
                 />
-                <Ionicons name="search-circle" size={40} color={COLORS.text} />
-                {search.length > 0 && <Ionicons name="close-circle" size={40} color={COLORS.black} />}    
+              
+                {search.length > 0 && <Ionicons onPress={clearSearch} name="close-circle" size={30} color={COLORS.black} />}    
             </View>
             <FlatList
-                data={filterProducts}
+                style={styles.products}
+                data={search.length > 0 ? filteredProducts : filteredProductsByCategory}
                 renderItem={({item}) => <Text>{item.name}</Text>}
                 keyExtractor={(item) => item.id.toString()}
             />
+            {filteredProducts.length == 0 && (
+                <View style={styles.notFound}>
+                    <Text style={styles.notFoundText}>No products found</Text>
+                </View>
+            )}
         </View>
     )
 }
