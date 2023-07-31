@@ -64,7 +64,7 @@ function Product ({onHandleGoBack, catergoryId }) {
                 renderItem={({item}) => <Text>{item.name}</Text>}
                 keyExtractor={(item) => item.id.toString()}
             />
-            {filteredProducts.length == 0 && (
+            {filteredProducts.length == 0 && search.length > 0 && (
                 <View style={styles.notFound}>
                     <Text style={styles.notFoundText}>No products found</Text>
                 </View>
