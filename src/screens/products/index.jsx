@@ -1,4 +1,4 @@
-import { View, Text, Button, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, ImageBackground } from "react-native";
 import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from "./styles";
 import { Input } from "../../components";
@@ -6,8 +6,8 @@ import { useState } from "react";
 import { COLORS } from "../../themes";
 import PRODUCTS from "../../constants/data/products.json"
 
-function Product ({onHandleGoBack, catergoryId }) {
-
+function Product ({onHandleGoBack, categorySelected}) {
+    
     const [search, setSearch] = useState('');
     const [filteredProducts, setFilteredProdcuts] = useState([]);
     const [borderColor, setBoderColor] = useState(COLORS.primary);
@@ -19,7 +19,7 @@ function Product ({onHandleGoBack, catergoryId }) {
     };
     const onHandleFocus = () => {};
 
-    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == catergoryId);
+    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == categorySelected.categoryId);
 
     const filterBySearch = (query) => {
         // hago una copia del filtro anterior para poder volver a filtralo.
@@ -37,12 +37,12 @@ function Product ({onHandleGoBack, catergoryId }) {
         setSearch('');
         setFilteredProdcuts([]);
     }
-
+    
     return(
         <View style={styles.container}>
             
             <TouchableOpacity style={styles.goBack} onPress={onHandleGoBack}>
-                <Ionicons name="arrow-back-circle" size={30} color={COLORS.black}/>
+                <Ionicons onPress={onHandleGoBack} name="arrow-back-circle" size={30} color={COLORS.black}/>
                 <Text style={styles.goBackText}>Go Back</Text>
             </TouchableOpacity>
             
@@ -56,14 +56,38 @@ function Product ({onHandleGoBack, catergoryId }) {
                     borderColor={borderColor}
                 />
               
-                {search.length > 0 && <Ionicons onPress={clearSearch} name="close-circle" size={30} color={COLORS.black} />}    
+                {search.length > 0 && (
+                <Ionicons 
+                    style={styles.clearIcon} 
+                    onPress={clearSearch} 
+                    name="close-circle" 
+                    size={20} color={COLORS.black} 
+                />
+                )}    
             </View>
             <FlatList
                 style={styles.products}
                 data={search.length > 0 ? filteredProducts : filteredProductsByCategory}
-                renderItem={({item}) => <Text>{item.name}</Text>}
+                
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => null} style={styles.productContainer}>
+                        <ImageBackground 
+                            source={{ uri: item.image }}
+                            style={[styles.productImage, { backgroundColor: categorySelected.color }]}
+                     TouchableOpacity   />
+                        <View style={styles.productDetail}>
+                            <Text style={styles.productName} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+                            <Text style={styles.productPrice}>{`${item.currency.code} ${item.price}`}</Text>
+                        </View>
+                        
+                    </TouchableOpacity>
+                )}
+                contentContainerStyle={styles.productsContent}
                 keyExtractor={(item) => item.id.toString()}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
             />
+            
             {filteredProducts.length == 0 && search.length > 0 && (
                 <View style={styles.notFound}>
                     <Text style={styles.notFoundText}>No products found</Text>

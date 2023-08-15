@@ -24,7 +24,7 @@ export const styles = StyleSheet.create ({
         fontWeight: 'bold',
         color: COLORS.white,
         padding: 20,
-        textShadowColor: 'rgba (0,0,0,0.75)',
+        textShadowColor: 'rgba(0,0,0,0.75)',
         textShadowOffset: {width: -1, height:1},
         textShadowRadius: 6,
     }, 
