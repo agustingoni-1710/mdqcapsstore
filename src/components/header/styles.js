@@ -19,10 +19,10 @@ export const styles = StyleSheet.create({
 
         elevation: 4,
     },
-
+    // fontWeight es incompatible con fontFamily, es decir que no puedo usar. al definir en el index pricipal algunos font para mi proyecto debo usar el fontFamily para accionarlos. Sino al usar fontWeight pisaria al fontFamily.
     title: {
         fontSize:  20,
         color: COLORS.text,
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
     },
 });

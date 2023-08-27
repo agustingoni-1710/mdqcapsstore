@@ -1,9 +1,11 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import {  Header } from './components';
 import { Categories, Products } from './screens';
 import { useState } from 'react';
-import { COLORS } from './themes';
+import { FONTS, COLORS } from './themes';
+import { useFonts } from 'expo-font';
+
 
 const catergoyDefault = {
   categoryId: null,
@@ -11,6 +13,13 @@ const catergoyDefault = {
 }
 
 export default function App() {
+  const [loaded, error] = useFonts({
+    [FONTS.regular]: require('../assets/fonts/Inter-Regular.ttf'),
+    [FONTS.bold] : require('../assets/fonts/Inter-Bold.ttf'),
+    [FONTS.light] : require('../assets/fonts/Inter-Light.ttf'),
+    [FONTS.medium] : require('../assets/fonts/Inter-Medium.ttf'),
+  })
+
   const [isCategorySelected, setIsCategorySelected] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(catergoyDefault);
 
@@ -25,6 +34,14 @@ export default function App() {
     setSelectedCategory(catergoyDefault); 
   }
   
+  if(!loaded){
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator color={COLORS.primary} size= "large"/>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}> 
       <View style={styles.container}>
@@ -44,5 +61,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
