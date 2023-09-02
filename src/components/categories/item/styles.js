@@ -19,6 +19,11 @@ export const styles = StyleSheet.create ({
         height: 150,
         justifyContent: 'flex-end',
     },
+    imageBackgroundTablet:{
+        width: '100%',
+        height: 250,
+        justifyContent: 'flex-end',
+    },
     categoryName: {
         fontSize: 20,
         fontFamily: 'Inter-Bold',
@@ -28,5 +33,14 @@ export const styles = StyleSheet.create ({
         textShadowOffset: {width: -1, height:1},
         textShadowRadius: 6,
     }, 
+    categoryNameTablet:{
+        fontSize: 40,
+        fontFamily: 'Inter-Bold',
+        color: COLORS.white,
+        padding: 20,
+        textShadowColor: 'rgba(0,0,0,0.75)',
+        textShadowOffset: {width: -1, height:1},
+        textShadowRadius: 6,
+    }
 
 });
