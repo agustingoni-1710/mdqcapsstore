@@ -6,8 +6,8 @@ import { useState } from "react";
 import { COLORS } from "../../themes";
 import PRODUCTS from "../../constants/data/products.json"
 
-function Product ({onHandleGoBack, categorySelected}) {
-    
+function Product ({navigation, route}) {
+    const { categoryId, color } = route.params;
     const [search, setSearch] = useState('');
     const [filteredProducts, setFilteredProdcuts] = useState([]);
     const [borderColor, setBoderColor] = useState(COLORS.primary);
@@ -19,7 +19,7 @@ function Product ({onHandleGoBack, categorySelected}) {
     };
     const onHandleFocus = () => {};
 
-    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == categorySelected.categoryId);
+    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == categoryId);
 
     const filterBySearch = (query) => {
         // hago una copia del filtro anterior para poder volver a filtralo.
@@ -41,10 +41,6 @@ function Product ({onHandleGoBack, categorySelected}) {
     return(
         <View style={styles.container}>
             
-            <TouchableOpacity style={styles.goBack} onPress={onHandleGoBack}>
-                <Ionicons onPress={onHandleGoBack} name="arrow-back-circle" size={30} color={COLORS.black}/>
-                <Text style={styles.goBackText}>Go Back</Text>
-            </TouchableOpacity>
             
             <View style={styles.header}>
                 <Input
@@ -73,7 +69,7 @@ function Product ({onHandleGoBack, categorySelected}) {
                     <TouchableOpacity onPress={() => null} style={styles.productContainer}>
                         <ImageBackground 
                             source={{ uri: item.image }}
-                            style={[styles.productImage, { backgroundColor: categorySelected.color }]}
+                            style={[styles.productImage, { backgroundColor: color }]}
                      TouchableOpacity   />
                         <View style={styles.productDetail}>
                             <Text style={styles.productName} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
