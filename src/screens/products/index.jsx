@@ -36,7 +36,11 @@ function Product ({navigation, route}) {
     const clearSearch = () => {
         setSearch('');
         setFilteredProdcuts([]);
-    }
+    };
+
+    const onSelectProduct = ({ productId, name }) =>{
+        navigation.navigate('ProductDetail', { productId, color, name})
+    };
     
     return(
         <View style={styles.container}>
@@ -66,7 +70,7 @@ function Product ({navigation, route}) {
                 data={search.length > 0 ? filteredProducts : filteredProductsByCategory}
                 
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => null} style={styles.productContainer}>
+                    <TouchableOpacity onPress={() => onSelectProduct({ productId: item.id, name: item.name })} style={styles.productContainer}>
                         <ImageBackground 
                             source={{ uri: item.image }}
                             style={[styles.productImage, { backgroundColor: color }]}
