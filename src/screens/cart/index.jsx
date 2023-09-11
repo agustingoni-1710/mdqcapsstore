@@ -3,13 +3,15 @@ import { FlatList, View, Text } from "react-native";
 
 import { styles } from "./styles";
 import { CartItem } from "../../components";
-import CART from "../../constants/data/cart.json";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
+    const cart = useSelector((state) => state.cart.items);
+
     return(
         <View style={styles.container}>
             <FlatList
-                data={CART}
+                data={cart}
                 renderItem={({ item }) => <CartItem {...item} />}
                 keyExtractor={(item) => item.id.toString()}
                 style={styles.listContainer}
