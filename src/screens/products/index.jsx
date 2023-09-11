@@ -4,10 +4,13 @@ import { styles } from "./styles";
 import { Input } from "../../components";
 import { useState } from "react";
 import { COLORS } from "../../themes";
-import PRODUCTS from "../../constants/data/products.json"
+import { useSelector } from "react-redux";
+
+
 
 function Product ({navigation, route}) {
     const { categoryId, color } = route.params;
+    const products = useSelector((state)=> state.products.data);
     const [search, setSearch] = useState('');
     const [filteredProducts, setFilteredProdcuts] = useState([]);
     const [borderColor, setBoderColor] = useState(COLORS.primary);
@@ -19,7 +22,9 @@ function Product ({navigation, route}) {
     };
     const onHandleFocus = () => {};
 
-    const filteredProductsByCategory = PRODUCTS.filter((product) => product.categoryId == categoryId);
+    /* console.warn({products}); */
+
+    const filteredProductsByCategory = products.filter((product) => product.categoryId == categoryId);
 
     const filterBySearch = (query) => {
         // hago una copia del filtro anterior para poder volver a filtralo.

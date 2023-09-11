@@ -3,6 +3,8 @@ import { ActivityIndicator, SafeAreaView, StyleSheet,View } from 'react-native';
 import { FONTS, COLORS } from './themes';
 import { useFonts } from 'expo-font';
 import RootNavigator from './navigations';
+import { Provider } from 'react-redux';
+import { store } from './store ';
 
 
 /* const catergoyDefault = {
@@ -41,9 +43,11 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}> 
-      <RootNavigator/>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}> 
+        <RootNavigator/>
+      </SafeAreaView>
+    </Provider>
   );
 }
 
