@@ -5,7 +5,7 @@ import { COLORS } from "../../../themes";
 
 
 
-const CartItem = ({ id, categoryId, name, price, image, currency, quantity, stock, ...props }) => {
+const CartItem = ({ id, categoryId, name, price, image, currency, quantity, stock, onIncreaseCartItem, onDecreaseCartItem, onRemoveCartItem }) => {
         return(
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
@@ -16,13 +16,13 @@ const CartItem = ({ id, categoryId, name, price, image, currency, quantity, stoc
                     <Text style={styles.price}>{`${currency.code} ${price}`}</Text>
                     <Text style={styles.qty}>{`qty: ${quantity} stock: ${stock}`}</Text>
                     <View style={styles.actionContainer}>
-                        <TouchableOpacity style={styles.increasebutton} onPress={() => {}}>
+                        <TouchableOpacity style={styles.increasebutton} onPress={() => onIncreaseCartItem(id)}>
                             <Text style={styles.increasebuttonText}>+</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.decreaseButton} onPress={() => {}}>
+                        <TouchableOpacity style={styles.decreaseButton} onPress={() => onDecreaseCartItem(id)}>
                             <Text style={styles.decreaseButtonText}>-</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {}} style={styles.deleteButton}>
+                        <TouchableOpacity onPress={() => onRemoveCartItem(id)} style={styles.deleteButton}>
                         <Ionicons name="trash" size={14} color={COLORS.white} />
                     </TouchableOpacity>
                     </View>    
