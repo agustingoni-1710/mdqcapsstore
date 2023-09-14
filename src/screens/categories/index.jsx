@@ -5,11 +5,14 @@ import { styles } from './styles';
 import useOrientation from '../../hooks/useOrientation';
 import { ORIENTATION } from '../../constants/orientation';
 import { useSelector } from 'react-redux';
+import { useGetCategoriesQuery } from '../../store /categories/api';
 
 
 
 function Categories({ navigation }) {
-  const categories = useSelector((state) => state.categories.data)  
+  const { data, error, isLoading } = useGetCategoriesQuery(); 
+
+  console.warn({ data, error, isLoading });
   const orientation = useOrientation();
 
   const onSelectCategory = ({ categoryId, color, name }) => {
@@ -20,7 +23,7 @@ function Categories({ navigation }) {
     <SafeAreaView style={styles.container}> 
       <View style={styles.container}>
         <FlatList
-          data={categories}
+          data={data}
           style={styles.categoryContainer}
           contentContainerStyle={styles.listCategory}
           
