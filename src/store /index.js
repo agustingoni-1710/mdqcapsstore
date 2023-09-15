@@ -4,6 +4,7 @@ import categoriesReducer from "./categories/categories.slice";
 import productReducer from "./products/product.slice";
 import cartReducer from "./cart/cart.slice";
 import { categoriesApi } from "./categories/api";
+import { productsApi } from "./products/api";
 
 export const store = configureStore({
     reducer:{
@@ -11,8 +12,9 @@ export const store = configureStore({
         products: productReducer,
         cart: cartReducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
+        [productsApi.reducerPath]: productsApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(categoriesApi.middleware), 
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(categoriesApi.middleware, productsApi.middleware), 
 });
 
 setupListeners(store.dispatch);

@@ -7,10 +7,6 @@ import { Provider } from 'react-redux';
 import { store } from './store ';
 
 
-/* const catergoyDefault = {
-  categoryId: null,
-  color: COLORS.primary,
-} */
 
 export default function App() {
   const [loaded, error] = useFonts({
@@ -20,19 +16,6 @@ export default function App() {
     [FONTS.medium] : require('../assets/fonts/Inter-Medium.ttf'),
   })
 
-  /* const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(catergoyDefault);
-
-  const headerTitle = isCategorySelected ? 'Products' : 'Categories';
-  
-  const onHandleSelectCategory = ({categoryId, color}) =>{
-    setSelectedCategory({categoryId, color});
-    setIsCategorySelected(!isCategorySelected);
-  };
-  const onHandleNavigate = () =>{
-    setIsCategorySelected(!isCategorySelected);
-    setSelectedCategory(catergoyDefault); 
-  } */
   
   if(!loaded){
     return (
@@ -44,9 +27,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}> 
+      <View style={styles.container}> 
         <RootNavigator/>
-      </SafeAreaView>
+      </View>
     </Provider>
   );
 }

@@ -4,13 +4,15 @@ import { styles } from "./styles";
 import { Input } from "../../components";
 import { useState } from "react";
 import { COLORS } from "../../themes";
-import { useSelector } from "react-redux";
+
+import { useGetProductsByCategoryQuery } from "../../store /products/api";
 
 
 
 function Product ({navigation, route}) {
     const { categoryId, color } = route.params;
-    const products = useSelector((state)=> state.products.data);
+    
+    const { data, error, isLoading } = useGetProductsByCategoryQuery(categoryId);
     const [search, setSearch] = useState('');
     const [filteredProducts, setFilteredProdcuts] = useState([]);
     const [borderColor, setBoderColor] = useState(COLORS.primary);
@@ -20,11 +22,14 @@ function Product ({navigation, route}) {
         // cuando realizo la busqueda,osea ingreso el produnto a buscar en el input, lo va a filtrar directamente con el filterBySearch. 
         filterBySearch(text);
     };
+    console.warn({data});
     const onHandleFocus = () => {};
 
     /* console.warn({products}); */
 
-    const filteredProductsByCategory = products.filter((product) => product.categoryId == categoryId);
+    const filteredProductsByCategory = data?.filter((product) => product.categoryId == categoryId);
+
+    
 
     const filterBySearch = (query) => {
         // hago una copia del filtro anterior para poder volver a filtralo.
