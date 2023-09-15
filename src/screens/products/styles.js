@@ -61,4 +61,10 @@ export const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
     },
+
+    containerLoader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
 });
