@@ -11,9 +11,10 @@ const Cart = ({ navigation }) => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.items);
     const total = useSelector((state) => state.cart.total);
-    const [createOrder, { data, isError, error, isLoading}] = useCreateOrderMutation();
+    
+    const [createOrder, { data, isError, error, isLoading }] = useCreateOrderMutation();
 
-        
+
     const onIncreaseCartItem = (id) => {
         dispatch(increaseItemQuantity({id}));    
     };
@@ -49,9 +50,9 @@ const Cart = ({ navigation }) => {
           finishedAt: '',
         };
         try {
-          await createOrder(newOrder);
-          dispatch(clearCart());
-          navigation.navigate('OrdersTab');
+          await createOrder(newOrder),
+          dispatch(clearCart()),
+          navigation.navigate('OrdersTab')
         } catch (e) {
           console.warn({ error, e });
         }

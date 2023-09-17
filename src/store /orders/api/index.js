@@ -24,7 +24,7 @@ export const ordersApi = createApi({
           ...response[key],
         }));
       },
-      providesTags: ['Orders'],
+          providesTags: ['Orders'], 
     }),
   }),
 });

@@ -27,7 +27,7 @@ function ProductDetail ({ navigation, route }) {
       </View>    
     );
 
-    /* console.warn({ data }); */
+    
     return(
         <View style={styles.container}>
             

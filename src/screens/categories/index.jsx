@@ -5,8 +5,9 @@ import { styles } from './styles';
 import useOrientation from '../../hooks/useOrientation';
 import { ORIENTATION } from '../../constants/orientation';
 import { useSelector } from 'react-redux';
-import { useGetCategoriesQuery } from '../../store /categories/api';
+
 import { COLORS } from '../../themes';
+import { useGetCategoriesQuery } from '../../store /categories/api';
 
 
 

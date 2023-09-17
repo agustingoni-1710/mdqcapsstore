@@ -25,7 +25,7 @@ function Product ({navigation, route}) {
     console.warn({data});
     const onHandleFocus = () => {};
 
-    /* console.warn({products}); */
+    
 
     const filteredProductsByCategory = data?.filter((product) => product.categoryId == categoryId);
 
