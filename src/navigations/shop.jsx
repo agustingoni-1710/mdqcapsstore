@@ -3,27 +3,38 @@ import { Ionicons } from "@expo/vector-icons";
 import { Categories, Products, ProductDetail } from "../screens";
 import { COLORS, FONTS } from "../themes";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import SettingsNavigator from "./settings";
 
 const Stack = createNativeStackNavigator();
 
 function ShopNavigator(){    
     return(
-        <Stack.Navigator 
+        <Stack.Navigator
             initialRouteName="Categories"
-            screenOptions={{
-                
-                headerStyle: {
-                    backgroundColor: COLORS.primary,
-                    height: 80,
-                },
-                headerTitleStyle: {
-                    fontFamily: FONTS.bold,
-                    fontSize: 16,
-                },
-                headerTintColor: COLORS.white,
-                animation: 'slide_from_bottom'
-               
-            }}> 
+            screenOptions={({ navigation }) => ({
+            headerStyle: {
+            backgroundColor: COLORS.primary,
+            height: 80,
+            },
+            headerTitleStyle: {
+            fontFamily: FONTS.bold,
+            fontSize: 16,
+            },
+            headerTintColor: COLORS.white,
+            animation: 'fade_from_bottom',
+            headerRight: () => (
+            <TouchableOpacity
+                style={styles.icon}
+                onPress={() => navigation.navigate('SettingsStack')}>
+                <Ionicons name="settings-outline" size={24} color={COLORS.white} />
+            </TouchableOpacity>
+            ),
+            /* headerLeft: () => (
+            <TouchableOpacity style={styles.icon} onPress={() => dispatch(logout())}>
+                <Ionicons name="ios-log-out-outline" size={24} color={COLORS.white} />
+            </TouchableOpacity>
+            ), */
+        })}>
                
             <Stack.Screen name="Categories" component={Categories}/>
             <Stack.Screen 
@@ -60,6 +71,21 @@ function ShopNavigator(){
                     
                     title: route.params.name,
 
+                })}
+            />
+            <Stack.Screen
+                name="SettingsStack"
+                component={SettingsNavigator}
+                options={({ navigation, route }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()} >
+                            <Ionicons name="arrow-back-circle" size={30} color={COLORS.white}/>
+                            
+                        </TouchableOpacity>
+                    ),
+                    
+                    title: 'Settings',
+                    headerRight: null,    
                 })}
             />
         </Stack.Navigator>
