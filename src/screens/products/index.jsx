@@ -22,7 +22,7 @@ function Product ({navigation, route}) {
         // cuando realizo la busqueda,osea ingreso el produnto a buscar en el input, lo va a filtrar directamente con el filterBySearch. 
         filterBySearch(text);
     };
-    console.warn({data});
+    /* console.warn({data}); */
     const onHandleFocus = () => {};
 
     
