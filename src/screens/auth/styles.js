@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         maxWidth: 400,
         padding: 15,
         margin: 15,
+        minHeight: 350,
         backgroundColor: COLORS.white,
         borderWidth: 1,
         borderColor: COLORS.primary,
@@ -66,6 +67,14 @@ export const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: COLORS.secondary,
+        width: 200,
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    buttonDisabled: {
+        backgroundColor: COLORS.grey,
         width: 200,
         height: 35,
         justifyContent: 'center',
